@@ -1,0 +1,37 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - RetrieverApi/**
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - RetrieverApi/**
+  workflow_dispatch: 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      run: dotnet publish RetrieverApi/src/Essays.RetrieverApi -c Release -o ${{env.DOTNET_ROOT}}/myapp 
+    - name: Upload artifact for deployment job 
+      uses: actions/upload-artifact@v4 
+      with: 
+        name: .net-app
+        path: ${{env.DOTNET_ROOT}}/myapp
