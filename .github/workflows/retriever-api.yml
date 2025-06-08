@@ -81,5 +81,5 @@ jobs:
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ vars.RETRIEVAL_API_RESOURCE_NAME }}
+          app-name: ${{ vars.RETRIEVER_API_RESOURCE_NAME }}
           package: ${{ env.ARTIFACT_PATH }}

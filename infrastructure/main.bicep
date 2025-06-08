@@ -2,11 +2,11 @@ param location string = resourceGroup().location
 
 var uniqueId = uniqueString(resourceGroup().id)
 
-module retrievalApiAppService 'modules/compute/app-service.bicep' = {
-  name: 'retrievalApiDeployment'
+module retrieverApiAppService 'modules/compute/app-service.bicep' = {
+  name: 'retrieverApiDeployment'
   params: {
-    appServiceName: 'app-retrieval-api-${uniqueId}'
-    appServicePlanName: 'asp-retrieval-api-${uniqueId}'
+    appServiceName: 'app-retriever-api-${uniqueId}'
+    appServicePlanName: 'asp-retriever-api-${uniqueId}'
     location: location
   }
 }

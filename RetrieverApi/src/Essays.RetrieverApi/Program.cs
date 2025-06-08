@@ -4,6 +4,6 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Retrieval API");
+app.MapGet("/", () => "Retriever API");
 
 app.Run();
