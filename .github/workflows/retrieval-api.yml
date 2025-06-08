@@ -71,7 +71,7 @@ jobs:
           name: retriever-api
           path: ${{ env.ARTIFACT_PATH }}
           
-      - name: Login to Azure
+      - name: Login to and authenticate with Azure
         uses: azure/login@v2.1.1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
