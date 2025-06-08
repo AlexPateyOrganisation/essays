@@ -1,6 +1,6 @@
 @Essays.RetrieverApi_HostAddress = http://localhost:5223
 
-GET {{Essays.RetrieverApi_HostAddress}}/weatherforecast/
+GET {{Essays.RetrieverApi_HostAddress}}/
 Accept: application/json
 
 ###

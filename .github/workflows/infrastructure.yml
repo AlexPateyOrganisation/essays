@@ -1,0 +1,50 @@
+name: Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - infrastructure/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - infrastructure/**
+  workflow_dispatch:
+  
+permissions:
+  id-token: write
+  contents: read
+    
+jobs:
+  
+  deploy-dev:
+    name: Deploy infrastructure to Development environment
+    runs-on: ubuntu-latest
+    environment: Development
+    
+    steps:
+      - name: Checkout main branch of repository
+        uses: actions/checkout@v4
+
+      - name: Login to and authenticate with Azure
+        uses: azure/login@v2.1.1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure development resource group exists
+        uses: Azure/CLI@v2
+        with:
+          inlineScript: |
+            #!/bin/bash
+            az group create --name ${{ vars.RESOURCE_GROUP_NAME }} --location ${{ vars.RESOURCE_GROUP_LOCATION }}
+
+      - name: Deploy
+        uses: azure/arm-deploy@v2
+        with:
+          resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+          template: ./infrastructure/main.bicep
+          scope: resourcegroup
