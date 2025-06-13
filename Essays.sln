@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RetrieverApi", "RetrieverAp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A0058268-B23E-423F-B5ED-3417B9141A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Essays.RetrieverApi", "RetrieverApi\src\Essays.RetrieverApi\Essays.RetrieverApi.csproj", "{89A37254-F866-424E-A6AB-A935951F2ED5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Essays.Retriever.Api", "RetrieverApi\src\Essays.Retriever.Api\Essays.Retriever.Api.csproj", "{89A37254-F866-424E-A6AB-A935951F2ED5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

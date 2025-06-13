@@ -1,0 +1,10 @@
+@RetrieverApi_HostAddress = http://localhost:5223
+@Test_Essay_Id = 4c2d91ea-d4c1-4757-9be5-05149a2cefb6
+
+GET {{RetrieverApi_HostAddress}}/
+
+###
+
+GET {{RetrieverApi_HostAddress}}/essays/{{Test_Essay_Id}}
+
+###
