@@ -14,9 +14,9 @@ public class RetrieverEndpoints : IEndpoints
     private const string BaseRoute = "essays";
     public static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
-        
+
     }
-    
+
     public static void DefineEndpoints(IEndpointRouteBuilder app)
     {
         app.MapGet($"{BaseRoute}/{{id:guid}}", GetEssayHandler)

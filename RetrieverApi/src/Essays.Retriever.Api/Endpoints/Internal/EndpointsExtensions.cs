@@ -20,7 +20,7 @@ public static class EndpointsExtensions
                 .Invoke(null, [services, configuration]);
         }
     }
-    
+
     public static void UseEndpoints<TMarker>(this IApplicationBuilder app)
     {
         var endpointTypes = GetEndpointTypesFromAssemblyContaining(typeof(TMarker));
@@ -31,10 +31,10 @@ public static class EndpointsExtensions
                 .Invoke(null, [app]);
         }
     }
-    
+
     private static IEnumerable<TypeInfo> GetEndpointTypesFromAssemblyContaining(Type typeMarker)
     {
-        var endpointTypes = 
+        var endpointTypes =
             typeMarker.Assembly.DefinedTypes
                 .Where(ti => ti is { IsAbstract: false, IsInterface: false } && typeof(IEndpoints).IsAssignableFrom(ti));
         return endpointTypes;
