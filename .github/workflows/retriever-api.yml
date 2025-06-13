@@ -2,7 +2,7 @@ name: Retriever Api
 
 env:
   DOTNET_VERSION: 9.0.x
-  BUILD_PATH: RetrieverApi/src/Essays.RetrieverApi/Essays.RetrieverApi.csproj
+  BUILD_PATH: RetrieverApi/src/Essays.Retriever.Api/Essays.Retriever.Api.csproj
   ARTIFACT_PATH: artifacts
 
 permissions:
