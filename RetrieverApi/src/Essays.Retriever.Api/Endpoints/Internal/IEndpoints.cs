@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Essays.Retriever.Api.Endpoints.Internal;
 
 public interface IEndpoints
