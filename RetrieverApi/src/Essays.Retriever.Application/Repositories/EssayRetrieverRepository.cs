@@ -9,11 +9,11 @@ public class EssayRetrieverRepository : IEssayRetrieverRepository
     {
         {
             new Guid("2a54b45f-dbd9-476d-b798-7c157081692f"),
-            new Essay(new Guid("2a54b45f-dbd9-476d-b798-7c157081692f"), "Title 1", [], "Author 1", DateTime.Now)
+            new Essay(new Guid("2a54b45f-dbd9-476d-b798-7c157081692f"), "Title 1", [31, 139, 8, 0, 0, 0, 0, 0, 0, 10, 43, 73, 45, 46, 1, 0, 12, 126, 127, 216, 4, 0, 0, 0], "Author 1", DateTime.Now)
         },
         {
             new Guid("f412e047-6954-4928-825b-99aeb65dbbdf"),
-            new Essay(new Guid("f412e047-6954-4928-825b-99aeb65dbbdf"), "Title 2", [], "Author 2", DateTime.Now)
+            new Essay(new Guid("f412e047-6954-4928-825b-99aeb65dbbdf"), "Title 2", [31, 139, 8, 0, 0, 0, 0, 0, 0, 10, 43, 73, 45, 46, 1, 0, 12, 126, 127, 216, 4, 0, 0, 0], "Author 2", DateTime.Now)
         }
     };
 
