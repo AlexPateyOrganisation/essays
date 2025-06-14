@@ -28,3 +28,5 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
     type: 'SystemAssigned'
   }
 }
+
+output principalId string = webApp.identity.principalId
