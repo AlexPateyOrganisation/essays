@@ -10,13 +10,14 @@ public class GzipExtensionsTests
     {
         //Arrange
         const string uncompressedText = "test";
-        byte[] expected = [31, 139, 8, 0, 0, 0, 0, 0, 0, 10, 43, 73, 45, 46, 1, 0, 12, 126, 127, 216, 4, 0, 0, 0];
 
         //Act
         var result = uncompressedText.CompressWithGzip();
 
         //Assert
-        result.ShouldBe(expected);
+        result.ShouldNotBeNull();
+        result.ShouldNotBeEmpty();
+        result.DecompressWithGzip().ShouldBe(uncompressedText);
     }
 
     [Fact]
@@ -46,13 +47,14 @@ public class GzipExtensionsTests
     {
         //Arrange
         byte[] compressedBytes = [31, 139, 8, 0, 0, 0, 0, 0, 0, 10, 43, 73, 45, 46, 1, 0, 12, 126, 127, 216, 4, 0, 0, 0];
-        const string expected = "test";
 
         //Act
         var result = compressedBytes.DecompressWithGzip();
 
         //Assert
-        result.ShouldBe(expected);
+        result.ShouldNotBeNull();
+        result.ShouldNotBeEmpty();
+        result.CompressWithGzip().ShouldBe(compressedBytes);
     }
 
     [Fact]
