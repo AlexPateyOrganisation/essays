@@ -25,7 +25,7 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
       linuxFxVersion: 'DOTNETCORE|9.0'
       appSettings: [
         {
-          name: 'keyVaultName'
+          name: 'KeyVaultName'
           value: keyVaultName
         }
       ]
