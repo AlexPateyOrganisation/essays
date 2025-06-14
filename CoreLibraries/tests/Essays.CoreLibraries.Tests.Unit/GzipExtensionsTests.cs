@@ -54,7 +54,7 @@ public class GzipExtensionsTests
         //Assert
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();
-        result.CompressWithGzip().ShouldBe(compressedBytes);
+        result.ShouldBe("test");
     }
 
     [Fact]
