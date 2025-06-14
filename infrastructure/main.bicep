@@ -17,6 +17,7 @@ module retrieverApiAppService 'modules/compute/app-service.bicep' = {
     appServiceName: 'app-retriever-api-${uniqueId}'
     appServicePlanName: 'asp-retriever-api-${uniqueId}'
     location: location
+    keyVaultName: keyVaultName
   }
 }
 
