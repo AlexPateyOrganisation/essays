@@ -6,7 +6,7 @@ var keyVaultName = 'kv-${uniqueId}'
 module keyVault 'modules/secrets/key-vault.bicep' = {
 name: 'keyVaultDeployment'
   params: {
-    vaultName: keyVaultName
+    keyVaultName: keyVaultName
     location: location
   }
 }
