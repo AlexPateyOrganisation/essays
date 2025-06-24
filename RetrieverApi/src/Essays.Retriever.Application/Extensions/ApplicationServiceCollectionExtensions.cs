@@ -15,8 +15,8 @@ public static class ApplicationServiceCollectionExtensions
         {
             throw new Exception("Could not find connection string for Essays Db.");
         }
-        
-        services.AddDbContext<EssaysContext>(optionsBuilder => 
+
+        services.AddDbContext<EssaysContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(connectionString),
             ServiceLifetime.Scoped,
             ServiceLifetime.Singleton);

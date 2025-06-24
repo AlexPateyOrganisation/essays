@@ -18,7 +18,7 @@ public static class GzipExtensions
         {
             gzip.Write(bytes, 0, bytes.Length);
         }
-        
+
         return output.ToArray();
     }
 
