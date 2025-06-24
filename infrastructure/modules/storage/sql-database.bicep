@@ -40,6 +40,6 @@ resource sqlDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2024-12-01-pre
   parent: keyVault
   name: 'EssaysDbConnectionString'
   properties: {
-    value: 'Server=tcp:${sqlServer.name}.database.windows.net,1433;Initial Catalog=${sqlDatabase.name};User ID=${sqlAdminUser};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+    value: 'Server=tcp:${sqlServer.name}.${environment().suffixes.sqlServerHostname},1433;Initial Catalog=${sqlDatabase.name};User ID=${sqlAdminUser};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
   }
 }
