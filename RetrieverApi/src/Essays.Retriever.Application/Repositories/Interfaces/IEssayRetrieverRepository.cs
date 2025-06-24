@@ -1,4 +1,4 @@
-using Essays.Retriever.Application.Models;
+using Essays.Core.Models.Models;
 
 namespace Essays.Retriever.Application.Repositories.Interfaces;
 

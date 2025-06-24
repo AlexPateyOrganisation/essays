@@ -1,5 +1,5 @@
-using Essays.CoreLibraries.Extensions;
-using Essays.Retriever.Application.Models;
+using Essays.Core.Libraries.Extensions;
+using Essays.Core.Models.Models;
 using Essays.Retriever.Contracts.Responses;
 
 namespace Essays.Retriever.Api.Mappings;

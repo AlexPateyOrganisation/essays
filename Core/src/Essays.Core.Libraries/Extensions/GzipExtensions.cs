@@ -1,7 +1,7 @@
 using System.IO.Compression;
 using System.Text;
 
-namespace Essays.CoreLibraries.Extensions;
+namespace Essays.Core.Libraries.Extensions;
 
 public static class GzipExtensions
 {
@@ -18,6 +18,7 @@ public static class GzipExtensions
         {
             gzip.Write(bytes, 0, bytes.Length);
         }
+        
         return output.ToArray();
     }
 
