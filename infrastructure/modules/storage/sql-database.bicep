@@ -38,7 +38,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2024-12-01-preview' existing = {
 
 resource sqlDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2024-12-01-preview' = {
   parent: keyVault
-  name: 'ConnectionStrings__EssaysContext'
+  name: 'ConnectionStrings--EssaysContext'
   properties: {
     value: 'Server=tcp:${sqlServer.name}.${environment().suffixes.sqlServerHostname},1433;Initial Catalog=${sqlDatabase.name};User ID=${sqlAdminUser};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
   }
