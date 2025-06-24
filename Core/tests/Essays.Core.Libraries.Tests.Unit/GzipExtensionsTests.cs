@@ -1,7 +1,7 @@
-using Essays.CoreLibraries.Extensions;
+using Essays.Core.Libraries.Extensions;
 using Shouldly;
 
-namespace Essays.CoreLibraries.Tests.Unit;
+namespace Essays.Core.Libraries.Tests.Unit;
 
 public class GzipExtensionsTests
 {

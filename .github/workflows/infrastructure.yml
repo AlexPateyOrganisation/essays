@@ -47,4 +47,5 @@ jobs:
         with:
           resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
           template: ./infrastructure/main.bicep
+          parameters: sqlAdminUser=${{secrets.SQL_ADMIN_USER}} sqlAdminPassword=${{secrets.SQL_ADMIN_PASSWORD}}
           scope: resourcegroup

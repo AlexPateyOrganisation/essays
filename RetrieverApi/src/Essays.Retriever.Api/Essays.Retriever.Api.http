@@ -1,4 +1,4 @@
-@RetrieverApi_HostAddress = http://localhost:5223
+@RetrieverApi_HostAddress = http://localhost:8080
 @Test_Essay_Id = 2a54b45f-dbd9-476d-b798-7c157081692f
 
 GET {{RetrieverApi_HostAddress}}/

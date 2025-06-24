@@ -4,6 +4,8 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>5a73d829-b69f-4d9d-8e82-f0371878593b</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,9 +15,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\CoreLibraries\src\Essays.CoreLibraries\Essays.CoreLibraries.csproj" />
-      <ProjectReference Include="..\Essays.Retriever.Application\Essays.Retriever.Application.csproj" />
-      <ProjectReference Include="..\Essays.Retriever.Contracts\Essays.Retriever.Contracts.csproj" />
+        <ProjectReference Include="..\..\..\Core\src\Essays.Core.Libraries\Essays.Core.Libraries.csproj" />
+        <ProjectReference Include="..\Essays.Retriever.Application\Essays.Retriever.Application.csproj" />
+        <ProjectReference Include="..\Essays.Retriever.Contracts\Essays.Retriever.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+        <Content Update="appsettings.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

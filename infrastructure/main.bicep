@@ -1,4 +1,8 @@
 param location string = resourceGroup().location
+@secure()
+param sqlAdminUser string
+@secure()
+param sqlAdminPassword string
 
 var uniqueId = uniqueString(resourceGroup().id)
 var keyVaultName = 'kv-${uniqueId}'
@@ -8,6 +12,18 @@ name: 'keyVaultDeployment'
   params: {
     keyVaultName: keyVaultName
     location: location
+  }
+}
+
+module sqlDatabase 'modules/storage/sql-database.bicep' = {
+  name: 'sqlDatabaseDeployment'
+  params: {
+    sqlServerName: 'sql-essays-${uniqueId}'
+    sqlDatabaseName: 'sqldb-essays-${uniqueId}'
+    sqlAdminUser: sqlAdminUser
+    sqlAdminPassword: sqlAdminPassword
+    location: location
+    keyVaultName: keyVaultName
   }
 }
 

@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Core\src\Essays.Core.Data\Essays.Core.Data.csproj" />
+      <ProjectReference Include="..\..\..\Core\src\Essays.Core.Models\Essays.Core.Models.csproj" />
+    </ItemGroup>
+
 </Project>

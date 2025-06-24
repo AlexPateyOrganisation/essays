@@ -1,0 +1,24 @@
+using Essays.Core.Data.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Essays.Retriever.Application.Extensions;
+
+public static class ApplicationServiceCollectionExtensions
+{
+    public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration["ConnectionStrings:EssaysContext"];
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new Exception("Could not find connection string for Essays Db.");
+        }
+
+        services.AddDbContext<EssaysContext>(optionsBuilder =>
+                optionsBuilder.UseSqlServer(connectionString),
+            ServiceLifetime.Scoped,
+            ServiceLifetime.Singleton);
+    }
+}
