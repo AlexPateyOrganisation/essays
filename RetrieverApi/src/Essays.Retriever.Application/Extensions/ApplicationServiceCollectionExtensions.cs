@@ -9,12 +9,7 @@ public static class ApplicationServiceCollectionExtensions
 {
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration["ConnectionStrings:EssaysContext"];
-
-        if (string.IsNullOrWhiteSpace(connectionString))
-        {
-            throw new Exception("Could not find connection string for Essays Db.");
-        }
+        var connectionString = configuration["ConnectionStrings:EssaysContext"] ?? throw new Exception("Could not find connection string for Essays Db.");
 
         services.AddDbContext<EssaysContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(connectionString),
