@@ -1,0 +1,43 @@
+name: Database Migrations
+
+env:
+  DOTNET_VERSION: 9.0.x
+  
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Core/src/Essays.Core.Data/Migrations/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - Core/src/Essays.Core.Data/Migrations/**
+  workflow_dispatch:
+    
+jobs:
+  run-migrations-dev:
+    name: Run database migrations on Development environment
+    runs-on: ubuntu-latest
+    environment: Development
+
+    steps:
+      - name: Checkout main branch of repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Install EF Core CLI tools
+        run: dotnet tool install --global dotnet-ef
+        
+      - name: Run EF Core Migrations
+        run: dotnet ef database update --project Core/src/Essays.Core.Data/Essays.Core.Data.csproj --startup-project RetrieverApi/src/Essays.Retriever.Api/Essays.Retriever.Api.csproj
+        env:
+          ConnectionStrings__EssaysContext: ${{ secrets.SQL_DATABASE_CONNECTION_STRING }}
