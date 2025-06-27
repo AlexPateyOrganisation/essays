@@ -16,6 +16,10 @@ on:
       - Core/src/Essays.Core.Data/Migrations/**
   workflow_dispatch:
     
+permissions:
+  id-token: write
+  contents: read
+    
 jobs:
   run-migrations-dev:
     name: Run database migrations on Development environment
