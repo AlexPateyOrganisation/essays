@@ -1,0 +1,16 @@
+@WriterApi_HostAddress = http://localhost:8081
+
+GET {{WriterApi_HostAddress}}
+
+###
+
+POST {{WriterApi_HostAddress}}/essays/
+Content-Type: application/json
+
+{
+    "Title": "Test Title",
+    "Body": "Test Body",
+    "Author": "Test Author"
+}
+
+###

@@ -1,11 +1,24 @@
 # Essays
 
+## Running the code locally (with Docker)
+
+### Download [Git](https://git-scm.com/) and run the following commands
+```bash
+git clone https://github.com/AlexPateyOrganisation/essays.git
+cd essays
+```
+
+### Download [Docker](https://www.docker.com/) and run the following command
+
+```bash
+docker compose up --build
+```
+
 ## Infrastructure as Code (IaC) Overview
 
-### The following steps describe how to create and deploy the resources defined in the associated .bicep files using Azure as the cloud provider.
+### The following steps describe how to create and deploy the resources defined in the infrastructure folder using Azure as the cloud provider.
 
-### Download Azure CLI
-https://learn.microsoft.com/en-us/cli/azure/
+### Download [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
 
 ### Log in to your Azure account
 ```bash
