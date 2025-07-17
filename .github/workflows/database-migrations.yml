@@ -42,6 +42,6 @@ jobs:
         run: dotnet tool install --global dotnet-ef
         
       - name: Run EF Core Migrations
-        run: dotnet ef database update --project Core/src/Essays.Core.Data/Essays.Core.Data.csproj --startup-project RetrieverApi/src/Essays.Retriever.Api/Essays.Retriever.Api.csproj
+        run: dotnet ef database update --project Core/src/Essays.Core.Data/Essays.Core.Data.csproj --startup-project Core/src/Essays.Core.Migrator.Console/Essays.Core.Migrator.Console.csproj
         env:
           ConnectionStrings__EssaysContext: ${{ secrets.SQL_DATABASE_CONNECTION_STRING }}

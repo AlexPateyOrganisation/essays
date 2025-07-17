@@ -37,6 +37,16 @@ module retrieverApiAppService 'modules/compute/app-service.bicep' = {
   }
 }
 
+module writerApiAppService 'modules/compute/app-service.bicep' = {
+  name: 'writerApiDeployment'
+  params: {
+    appServiceName: 'app-writer-api-${uniqueId}'
+    appServicePlanName: 'asp-writer-api-${uniqueId}'
+    location: location
+    keyVaultName: keyVaultName
+  }
+}
+
 module keyVaultRoleAssignment 'modules/secrets/key-vault-role-assignment.bicep' = {
   name: 'keyVaultRoleAssignmentDeployment'
   params: {

@@ -19,16 +19,30 @@ services:
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
 
-#  retriever-api:
-#    image: retriever-api
-#    depends_on:
-#      - essays-db
-#      - essays-db-migrations
-#    container_name: retriever-api
-#    build:
-#      context: .
-#      dockerfile: RetrieverApi/src/Essays.Retriever.Api/Dockerfile
-#    environment:
-#      ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
-#    ports:
-#      - "8080:8080"
+  retriever-api:
+    image: retriever-api
+    depends_on:
+      - essays-db
+      - essays-db-migrations
+    container_name: retriever-api
+    build:
+      context: .
+      dockerfile: RetrieverApi/src/Essays.Retriever.Api/Dockerfile
+    environment:
+      ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
+    ports:
+      - "8080:8080"
+        
+  writer-api:
+    image: writer-api
+    depends_on:
+      - essays-db
+      - essays-db-migrations
+    container_name: writer-api
+    build:
+      context: .
+      dockerfile: WriterApi/src/Essays.Writer.Api/Dockerfile
+    environment:
+      ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
+    ports:
+      - "8081:8080"
