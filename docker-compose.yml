@@ -15,20 +15,20 @@ services:
     container_name: essays-db-migrations
     build:
       context: .
-      dockerfile: Core/src/Essays.Core.Migrations/Dockerfile
+      dockerfile: Core/src/Essays.Core.Migrator.Console/Dockerfile
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
 
-  retriever-api:
-    image: retriever-api
-    depends_on:
-      - essays-db
-      - essays-db-migrations
-    container_name: retriever-api
-    build:
-      context: .
-      dockerfile: RetrieverApi/src/Essays.Retriever.Api/Dockerfile
-    environment:
-      ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
-    ports:
-      - "8080:8080"
+#  retriever-api:
+#    image: retriever-api
+#    depends_on:
+#      - essays-db
+#      - essays-db-migrations
+#    container_name: retriever-api
+#    build:
+#      context: .
+#      dockerfile: RetrieverApi/src/Essays.Retriever.Api/Dockerfile
+#    environment:
+#      ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
+#    ports:
+#      - "8080:8080"

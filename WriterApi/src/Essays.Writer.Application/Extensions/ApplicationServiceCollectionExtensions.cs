@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Essays.Retriever.Application.Extensions;
+namespace Essays.Writer.Application.Extensions;
 
 public static class ApplicationServiceCollectionExtensions
 {

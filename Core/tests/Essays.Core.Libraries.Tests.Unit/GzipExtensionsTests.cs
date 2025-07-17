@@ -58,7 +58,7 @@ public class GzipExtensionsTests
     }
 
     [Fact]
-    public void CompressWithGzip_ShouldThrowException_WhenPassedEmptyBytesArray()
+    public void DecompressWithGzip_ShouldThrowException_WhenPassedEmptyBytesArray()
     {
         //Arrange
         byte[] compressedBytes = [];
@@ -69,7 +69,7 @@ public class GzipExtensionsTests
     }
 
     [Fact]
-    public void CompressWithGzip_ShouldThrowException_WhenPassedNull()
+    public void DecompressWithGzip_ShouldThrowException_WhenPassedNull()
     {
         //Arrange
         byte[] compressedBytes = null!;
