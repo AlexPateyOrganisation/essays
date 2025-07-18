@@ -53,6 +53,7 @@ module keyVaultRoleAssignment 'modules/secrets/key-vault-role-assignment.bicep' 
     keyVaultName: keyVaultName
     principalIds: [
       retrieverApiAppService.outputs.principalId
+      writerApiAppService.outputs.principalId
     ]
   }
 }
