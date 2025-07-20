@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.ConfigureAzureKeyVault();
 builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddEndpoints<Program>(builder.Configuration);
 
 var app = builder.Build();

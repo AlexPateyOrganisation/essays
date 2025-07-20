@@ -1,5 +1,5 @@
 @RetrieverApi_HostAddress = http://localhost:8080
-@Test_Essay_Id = bf2afcbe-2e9e-4598-a084-310490c15e41
+@Test_Essay_Id = fc6372c0-d104-4dba-b9b8-57449140a9c2
 
 GET {{RetrieverApi_HostAddress}}/
 

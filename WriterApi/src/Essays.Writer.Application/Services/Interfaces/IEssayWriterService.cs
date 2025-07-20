@@ -5,4 +5,6 @@ namespace Essays.Writer.Application.Services.Interfaces;
 public interface IEssayWriterService
 {
     public Task<bool> CreateEssay(Essay essay);
+    public Task<bool> UpdateEssay(Essay essay);
+    public Task<bool> DeleteEssay(Guid id);
 }

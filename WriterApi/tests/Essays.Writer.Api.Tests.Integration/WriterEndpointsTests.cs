@@ -26,7 +26,8 @@ public class WriterEndpointsTests(ApiFixture fixture) : IClassFixture<ApiFixture
     public async Task CreateEssayEndpoint_ShouldReturnCreatedResponse_WhenCalledWithValidRequest()
     {
         //Arrange
-        EssayRequest createEssayRequest = new("Test Title", "Test Body", "Test Author");
+        EssayRequest createEssayRequest
+            = new("Test Title", "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.", "Test Author");
 
         //Act
         var response = await _client.PostAsJsonAsync("/essays", createEssayRequest);
@@ -37,7 +38,7 @@ public class WriterEndpointsTests(ApiFixture fixture) : IClassFixture<ApiFixture
         responseContent.ShouldNotBeNull();
         responseContent.Title.ShouldBe("Test Title");
         responseContent.Author.ShouldBe("Test Author");
-        responseContent.Body.ShouldBe("Test Body");
+        responseContent.Body.ShouldBe("This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.");
     }
 
     [Fact]

@@ -14,6 +14,7 @@ public class RetrieverEndpoints : IEndpoints
     public static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IEssayRetrieverService, EssayRetrieverService>();
+        services.AddScoped<IEssayCacheService, EssayCacheService>();
         services.AddScoped<IEssayRetrieverRepository, EssayRetrieverRepository>();
     }
 
@@ -28,7 +29,7 @@ public class RetrieverEndpoints : IEndpoints
         .Produces(StatusCodes.Status404NotFound);
     }
 
-    private static async Task<IResult> GetEssayHandler(IEssayRetrieverService essayRetrieverService, Guid id)
+    private static async Task<IResult> GetEssayHandler(Guid id, IEssayRetrieverService essayRetrieverService)
     {
         var essay = await essayRetrieverService.GetEssay(id);
 
