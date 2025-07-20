@@ -29,9 +29,9 @@ public class RetrieverEndpoints : IEndpoints
         .Produces(StatusCodes.Status404NotFound);
     }
 
-    private static async Task<IResult> GetEssayHandler(Guid id, IEssayRetrieverService essayRetrieverService)
+    private static async Task<IResult> GetEssayHandler(Guid id, IEssayRetrieverService essayRetrieverService, CancellationToken cancellationToken = default)
     {
-        var essay = await essayRetrieverService.GetEssay(id);
+        var essay = await essayRetrieverService.GetEssay(id, cancellationToken);
 
         if (essay is null)
         {

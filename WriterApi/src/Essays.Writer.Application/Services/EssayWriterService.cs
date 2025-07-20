@@ -6,15 +6,15 @@ namespace Essays.Writer.Application.Services;
 
 public class EssayWriterService(IEssayCacheService essayCacheService, IEssayWriterRepository essayWriterRepository) : IEssayWriterService
 {
-    public async Task<bool> CreateEssay(Essay essay)
+    public async Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
-        var isCreated = await essayWriterRepository.CreateEssay(essay);
+        var isCreated = await essayWriterRepository.CreateEssay(essay, cancellationToken);
         return isCreated;
     }
 
-    public async Task<bool> UpdateEssay(Essay essay)
+    public async Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
-        var isUpdated = await essayWriterRepository.UpdateEssay(essay);
+        var isUpdated = await essayWriterRepository.UpdateEssay(essay, cancellationToken);
 
         if (isUpdated)
         {
@@ -24,9 +24,9 @@ public class EssayWriterService(IEssayCacheService essayCacheService, IEssayWrit
         return isUpdated;
     }
 
-    public async Task<bool> DeleteEssay(Guid id)
+    public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)
     {
-        var isDeleted = await essayWriterRepository.DeleteEssay(id);
+        var isDeleted = await essayWriterRepository.DeleteEssay(id, cancellationToken);
 
         if (isDeleted)
         {

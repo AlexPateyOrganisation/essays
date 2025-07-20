@@ -4,5 +4,5 @@ namespace Essays.Retriever.Application.Repositories.Interfaces;
 
 public interface IEssayRetrieverRepository
 {
-    public Task<Essay?> GetEssay(Guid id);
+    public Task<Essay?> GetEssay(Guid id, CancellationToken cancellationToken = default);
 }
