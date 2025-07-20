@@ -14,12 +14,12 @@ on:
     branches:
       - main
     paths:
-      - Writer/**
+      - WriterApi/**
   pull_request:
     branches:
       - main
     paths:
-      - Writer/**
+      - WriterApi/**
   workflow_dispatch:
 
 jobs:
