@@ -29,34 +29,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout main branch of repository
-      uses: actions/checkout@v4
-      
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Checkout main branch of repository
+        uses: actions/checkout@v4
         
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --no-restore
-      
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      
-    - name: Format
-      run: dotnet format -v detailed --verify-no-changes
-      
-    - name: Publish
-      run: dotnet publish ${{ env.BUILD_PATH }} -c Release -o ${{ env.ARTIFACT_PATH }}
-      
-    - name: Upload artifact for deployment job(s)
-      uses: actions/upload-artifact@v4 
-      with: 
-        name: retriever-api
-        path: ${{ env.ARTIFACT_PATH }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --no-restore
+        
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        
+      - name: Format
+        run: dotnet format -v detailed --verify-no-changes
+        
+      - name: Publish
+        run: dotnet publish ${{ env.BUILD_PATH }} -c Release -o ${{ env.ARTIFACT_PATH }}
+        
+      - name: Upload artifact for deployment job(s)
+        uses: actions/upload-artifact@v4 
+        with: 
+          name: retriever-api
+          path: ${{ env.ARTIFACT_PATH }}
         
   deploy-dev:
     name: Deploy Retriever Api to development environment

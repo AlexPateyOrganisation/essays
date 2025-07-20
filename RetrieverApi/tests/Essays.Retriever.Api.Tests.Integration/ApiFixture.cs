@@ -27,10 +27,18 @@ public class ApiFixture : WebApplicationFactory<IRetrieverApiAssemblyMarker>, IA
         await using var dbContext = new EssaysContext(dbContextOptions);
         await dbContext.Database.MigrateAsync();
 
-        await dbContext.Essays
-            .AddAsync(new Essay(new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"), "Test Title",
-                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(),
-                "Test Author", new DateTime(2025, 7, 1)));
+        var testEssay = new Essay
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
+
+        await dbContext.Essays.AddAsync(testEssay);
         await dbContext.SaveChangesAsync();
 
         Environment.SetEnvironmentVariable("ConnectionStrings__EssaysContext", msSqlConnectionString);

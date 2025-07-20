@@ -1,4 +1,5 @@
-@WriterApi_HostAddress = http://localhost:8081/
+@WriterApi_HostAddress = http://localhost:8081
+@Test_Essay_Id = 5db0c492-6d5c-4abb-971a-658a43e73bc9
 
 GET {{WriterApi_HostAddress}}
 
@@ -8,9 +9,22 @@ POST {{WriterApi_HostAddress}}/essays/
 Content-Type: application/json
 
 {
-    "Title": "Test Title 2",
+    "Title": "Test Title 6",
     "Body": "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.",
-    "Author": "Test Author"
+    "Author": "Test Author 2"
 }
 
 ###
+
+PUT {{WriterApi_HostAddress}}/essays/{{Test_Essay_Id}}
+Content-Type: application/json
+
+{
+  "Title": "Updated Test Title 6",
+  "Body": "Updated Body - This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.",
+  "Author": "Updated - Test Author 2"
+}
+
+###
+
+DELETE {{WriterApi_HostAddress}}/essays/{{Test_Essay_Id}}

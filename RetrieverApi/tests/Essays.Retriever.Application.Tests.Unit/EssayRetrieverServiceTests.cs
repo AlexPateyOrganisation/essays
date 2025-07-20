@@ -28,7 +28,16 @@ public class EssayRetrieverServiceTests
         //Arrange
         var essayId = Guid.NewGuid();
 
-        Essay essay = new(essayId, "Test Title", "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(), "Test Author");
+        Essay essay = new()
+        {
+            Id = essayId,
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayCacheService.GetEssay(essayId)
             .Returns(essay);
@@ -47,7 +56,16 @@ public class EssayRetrieverServiceTests
         //Arrange
         var essayId = Guid.NewGuid();
 
-        Essay essay = new(essayId, "Test Title", "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(), "Test Author");
+        Essay essay = new()
+        {
+            Id = essayId,
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayCacheService.GetEssay(essayId)
             .Returns(null as Essay);

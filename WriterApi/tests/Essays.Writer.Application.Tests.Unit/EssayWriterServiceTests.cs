@@ -25,9 +25,16 @@ public class EssayWriterServiceTests
     public async Task CreateEssay_ShouldReturnTrue_WhenEssayIsCreated()
     {
         //Arrange
-        var essay = new Essay(new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"), "Test Title",
-            "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(),
-            "Test Author", new DateTime(2025, 7, 1));
+        Essay essay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayWriterRepository.CreateEssay(essay)
             .Returns(true);
@@ -43,9 +50,16 @@ public class EssayWriterServiceTests
     public async Task CreateEssay_ShouldReturnFalse_WhenEssayIsNotCreated()
     {
         //Arrange
-        var essay = new Essay(new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"), "Test Title",
-            "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(),
-            "Test Author", new DateTime(2025, 7, 1));
+        Essay essay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayWriterRepository.CreateEssay(essay)
             .Returns(false);
@@ -61,9 +75,16 @@ public class EssayWriterServiceTests
     public async Task UpdateEssay_ShouldReturnTrueAndUpdateCache_WhenEssayIsUpdated()
     {
         //Arrange
-        var essay = new Essay(new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"), "Test Title",
-            "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(),
-            "Test Author", new DateTime(2025, 7, 1));
+        Essay essay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayWriterRepository.UpdateEssay(essay)
             .Returns(true);
@@ -80,9 +101,16 @@ public class EssayWriterServiceTests
     public async Task UpdateEssay_ShouldReturnFalseAndNotUpdateCache_WhenEssayIsNotUpdated()
     {
         //Arrange
-        var essay = new Essay(new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"), "Test Title",
-            "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.".CompressWithGzip(),
-            "Test Author", new DateTime(2025, 7, 1));
+        Essay essay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
 
         _essayWriterRepository.UpdateEssay(essay)
             .Returns(false);

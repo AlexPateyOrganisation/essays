@@ -26,7 +26,7 @@ public class EssayMapping : IEntityTypeConfiguration<Essay>
             .HasValueGenerator<CreatedWhenDateGenerator>()
             .IsRequired();
 
-        builder.Property<DateTimeOffset>("LastEditedWhen");
+        builder.Property<DateTimeOffset?>("LastEditedWhen");
 
         builder.Property<bool>("Deleted")
             .HasDefaultValue(false);
