@@ -7,14 +7,14 @@ namespace Essays.Writer.Application.Repositories;
 
 public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRepository
 {
-    public async Task<bool> CreateEssay(Essay essay)
+    public async Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
-        await essaysContext.Essays.AddAsync(essay);
-        var rowsAffected = await essaysContext.SaveChangesAsync();
+        await essaysContext.Essays.AddAsync(essay, cancellationToken);
+        var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
         return rowsAffected > 0;
     }
 
-    public async Task<bool> UpdateEssay(Essay essay)
+    public async Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         var essayToUpdate = essaysContext.Essays.SingleOrDefault(e => e.Id == essay.Id);
 
@@ -28,13 +28,13 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         essayToUpdate.Author = essay.Author;
 
         essaysContext.Essays.Update(essayToUpdate);
-        var rowsAffected = await essaysContext.SaveChangesAsync();
+        var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
         return rowsAffected > 0;
     }
 
-    public async Task<bool> DeleteEssay(Guid id)
+    public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)
     {
-        var essay = await essaysContext.Essays.SingleOrDefaultAsync(e => e.Id == id);
+        var essay = await essaysContext.Essays.SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
 
         if (essay == null)
         {
@@ -42,7 +42,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         }
 
         essaysContext.Essays.Remove(essay);
-        var rowsAffected = await essaysContext.SaveChangesAsync();
+        var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
         return rowsAffected > 0;
     }
 }

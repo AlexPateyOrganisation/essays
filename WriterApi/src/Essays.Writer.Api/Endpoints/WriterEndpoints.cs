@@ -47,9 +47,9 @@ public class WriterEndpoints : IEndpoints
     }
 
     private static async Task<IResult> CreateEssayHandler(EssayRequest essayRequest,
-        IEssayWriterService essayWriterService, IValidator<EssayRequest> validator)
+        IEssayWriterService essayWriterService, IValidator<EssayRequest> validator, CancellationToken cancellationToken = default)
     {
-        var validationResult = await validator.ValidateAsync(essayRequest);
+        var validationResult = await validator.ValidateAsync(essayRequest, cancellationToken);
 
         if (!validationResult.IsValid)
         {
@@ -58,7 +58,7 @@ public class WriterEndpoints : IEndpoints
 
         var essay = essayRequest.MapToEssay();
 
-        var isCreated = await essayWriterService.CreateEssay(essay);
+        var isCreated = await essayWriterService.CreateEssay(essay, cancellationToken);
 
         if (!isCreated)
         {
@@ -71,9 +71,9 @@ public class WriterEndpoints : IEndpoints
     }
 
     private static async Task<IResult> UpdateEssayHandler(Guid id, EssayRequest essayRequest,
-        IEssayWriterService essayWriterService, IValidator<EssayRequest> validator)
+        IEssayWriterService essayWriterService, IValidator<EssayRequest> validator, CancellationToken cancellationToken = default)
     {
-        var validationResult = await validator.ValidateAsync(essayRequest);
+        var validationResult = await validator.ValidateAsync(essayRequest, cancellationToken);
 
         if (!validationResult.IsValid)
         {
@@ -82,7 +82,7 @@ public class WriterEndpoints : IEndpoints
 
         var essay = essayRequest.MapToEssay(id);
 
-        var isUpdated = await essayWriterService.UpdateEssay(essay);
+        var isUpdated = await essayWriterService.UpdateEssay(essay, cancellationToken);
 
         if (!isUpdated)
         {
@@ -94,9 +94,9 @@ public class WriterEndpoints : IEndpoints
         return Results.Ok(essayResponse);
     }
 
-    private static async Task<IResult> DeleteEssayHandler(Guid id, IEssayWriterService essayWriterService)
+    private static async Task<IResult> DeleteEssayHandler(Guid id, IEssayWriterService essayWriterService, CancellationToken cancellationToken = default)
     {
-        var isDeleted = await essayWriterService.DeleteEssay(id);
+        var isDeleted = await essayWriterService.DeleteEssay(id, cancellationToken);
 
         if (!isDeleted)
         {

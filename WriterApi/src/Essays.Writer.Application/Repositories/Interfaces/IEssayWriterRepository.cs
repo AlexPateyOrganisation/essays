@@ -4,7 +4,7 @@ namespace Essays.Writer.Application.Repositories.Interfaces;
 
 public interface IEssayWriterRepository
 {
-    public Task<bool> CreateEssay(Essay essay);
-    public Task<bool> UpdateEssay(Essay essay);
-    public Task<bool> DeleteEssay(Guid id);
+    public Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default);
+    public Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default);
+    public Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default);
 }
