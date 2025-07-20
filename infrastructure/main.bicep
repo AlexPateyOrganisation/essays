@@ -57,3 +57,12 @@ module keyVaultRoleAssignment 'modules/secrets/key-vault-role-assignment.bicep' 
     ]
   }
 }
+
+module redisCache 'modules/storage/redis-cache.bicep' = {
+  name: 'redisCacheDeployment'
+  params: {
+    name: 'redis-${uniqueId}'
+    location: location
+    keyVaultName: keyVaultName
+  }
+}
