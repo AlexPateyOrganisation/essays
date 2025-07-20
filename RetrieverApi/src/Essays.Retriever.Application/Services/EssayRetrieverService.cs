@@ -4,11 +4,24 @@ using Essays.Retriever.Application.Services.Interfaces;
 
 namespace Essays.Retriever.Application.Services;
 
-public class EssayRetrieverService(IEssayRetrieverRepository essayRetrieverRepository) : IEssayRetrieverService
+public class EssayRetrieverService(IEssayCacheService essayCacheService, IEssayRetrieverRepository essayRetrieverRepository) : IEssayRetrieverService
 {
     public async Task<Essay?> GetEssay(Guid id)
     {
-        var essay = await essayRetrieverRepository.GetEssay(id);
+        var essay = await essayCacheService.GetEssay(id);
+
+        if (essay != null)
+        {
+            return essay;
+        }
+
+        essay = await essayRetrieverRepository.GetEssay(id);
+
+        if (essay != null)
+        {
+            await essayCacheService.CacheEssay(essay);
+        }
+
         return essay;
     }
 }

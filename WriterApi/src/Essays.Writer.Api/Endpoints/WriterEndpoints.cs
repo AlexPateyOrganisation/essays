@@ -6,6 +6,7 @@ using Essays.Writer.Application.Repositories.Interfaces;
 using Essays.Writer.Application.Services;
 using Essays.Writer.Application.Services.Interfaces;
 using Essays.Writer.Contracts.Requests;
+using Essays.Writer.Contracts.Responses;
 using FluentValidation;
 
 namespace Essays.Writer.Api.Endpoints;
@@ -17,6 +18,7 @@ public class WriterEndpoints : IEndpoints
     public static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IEssayWriterService, EssayWriterService>();
+        services.AddScoped<IEssayCacheService, EssayCacheService>();
         services.AddScoped<IEssayWriterRepository, EssayWriterRepository>();
         services.AddScoped<IValidator<EssayRequest>, EssayRequestValidator>();
     }
@@ -31,6 +33,17 @@ public class WriterEndpoints : IEndpoints
             .Accepts<EssayRequest>(ContentType)
             .Produces(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
+
+        app.MapPut($"{BaseRoute}/{{id:guid}}", UpdateEssayHandler)
+            .WithName("UpdateEssay")
+            .Accepts<EssayRequest>(ContentType)
+            .Produces<EssayResponse>()
+            .Produces(StatusCodes.Status404NotFound);
+
+        app.MapDelete($"{BaseRoute}/{{id:guid}}", DeleteEssayHandler)
+            .WithName("DeleteEssay")
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound);
     }
 
     private static async Task<IResult> CreateEssayHandler(EssayRequest essayRequest,
@@ -55,5 +68,41 @@ public class WriterEndpoints : IEndpoints
         var essayResponse = essay.MapToEssayResponse();
 
         return Results.Created($"/essays/{essayResponse.Id}", essayResponse);
+    }
+
+    private static async Task<IResult> UpdateEssayHandler(Guid id, EssayRequest essayRequest,
+        IEssayWriterService essayWriterService, IValidator<EssayRequest> validator)
+    {
+        var validationResult = await validator.ValidateAsync(essayRequest);
+
+        if (!validationResult.IsValid)
+        {
+            return Results.ValidationProblem(validationResult.ToDictionary());
+        }
+
+        var essay = essayRequest.MapToEssay(id);
+
+        var isUpdated = await essayWriterService.UpdateEssay(essay);
+
+        if (!isUpdated)
+        {
+            return Results.NotFound();
+        }
+
+        var essayResponse = essay.MapToEssayResponse();
+
+        return Results.Ok(essayResponse);
+    }
+
+    private static async Task<IResult> DeleteEssayHandler(Guid id, IEssayWriterService essayWriterService)
+    {
+        var isDeleted = await essayWriterService.DeleteEssay(id);
+
+        if (!isDeleted)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.Ok();
     }
 }

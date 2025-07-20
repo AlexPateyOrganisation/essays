@@ -19,30 +19,43 @@ services:
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
 
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    environment:
+      REDIS_ARGS: "--requirepass Test123!"
+
   retriever-api:
     image: retriever-api
     depends_on:
       - essays-db
       - essays-db-migrations
+      - redis
     container_name: retriever-api
     build:
       context: .
       dockerfile: RetrieverApi/src/Essays.Retriever.Api/Dockerfile
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
+      ConnectionStrings__Redis: "redis:6379,password=Test123!"
     ports:
       - "8080:8080"
-        
+
   writer-api:
     image: writer-api
     depends_on:
       - essays-db
       - essays-db-migrations
+      - redis
     container_name: writer-api
     build:
       context: .
       dockerfile: WriterApi/src/Essays.Writer.Api/Dockerfile
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
+      ConnectionStrings__Redis: "redis:6379,password=Test123!"
     ports:
       - "8081:8080"

@@ -1,4 +1,4 @@
-@WriterApi_HostAddress = http://localhost:8081
+@WriterApi_HostAddress = http://localhost:8081/
 
 GET {{WriterApi_HostAddress}}
 
@@ -8,8 +8,8 @@ POST {{WriterApi_HostAddress}}/essays/
 Content-Type: application/json
 
 {
-    "Title": "Test Title",
-    "Body": "Test Body",
+    "Title": "Test Title 2",
+    "Body": "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.",
     "Author": "Test Author"
 }
 

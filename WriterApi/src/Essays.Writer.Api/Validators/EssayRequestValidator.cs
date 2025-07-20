@@ -12,6 +12,7 @@ public class EssayRequestValidator : AbstractValidator<EssayRequest>
             .NotEmpty();
 
         RuleFor(er => er.Body)
+            .MinimumLength(100)
             .NotEmpty();
 
         RuleFor(er => er.Author)
