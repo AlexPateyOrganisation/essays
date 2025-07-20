@@ -1,3 +1,10 @@
 namespace Essays.Core.Models.Models;
 
-public record Essay(Guid Id, string Title, byte[] CompressedBody, string Author, DateTimeOffset CreatedWhen = default);
+public class Essay
+{
+    public required Guid Id { get; init; }
+    public required string Title { get; set; }
+    public required byte[] CompressedBody { get; set; }
+    public required string Author { get; set; }
+    public DateTimeOffset CreatedWhen { get; set; }
+}

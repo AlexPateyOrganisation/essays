@@ -29,7 +29,7 @@ public class EssaysContextSaveChangesInterceptor : ISaveChangesInterceptor
 
         foreach (var entry in updatedEntries)
         {
-            entry.Property<DateTimeOffset?>("LastEdited").CurrentValue = DateTimeOffset.Now;
+            entry.Property<DateTimeOffset?>("LastEditedWhen").CurrentValue = DateTimeOffset.Now;
         }
 
         return result;

@@ -16,21 +16,18 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
 
     public async Task<bool> UpdateEssay(Essay essay)
     {
-        var existingEssay = essaysContext.Essays.SingleOrDefault(e => e.Id == essay.Id);
+        var essayToUpdate = essaysContext.Essays.SingleOrDefault(e => e.Id == essay.Id);
 
-        if (existingEssay == null)
+        if (essayToUpdate == null)
         {
             return false;
         }
+        
+        essayToUpdate.Title = essay.Title;
+        essayToUpdate.CompressedBody = essay.CompressedBody;
+        essayToUpdate.Author = essay.Author;
 
-        var updatedEssay = existingEssay with
-        {
-            Title = essay.Title,
-            Author = essay.Author,
-            CompressedBody = essay.CompressedBody
-        };
-
-        essaysContext.Essays.Update(updatedEssay);
+        essaysContext.Essays.Update(essayToUpdate);
         var rowsAffected = await essaysContext.SaveChangesAsync();
         return rowsAffected > 0;
     }
