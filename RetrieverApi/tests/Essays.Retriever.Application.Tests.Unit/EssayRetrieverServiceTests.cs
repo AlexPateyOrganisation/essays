@@ -38,7 +38,7 @@ public class EssayRetrieverServiceTests
             Author = "Test Author",
             CreatedWhen = new DateTime(2025, 7, 1)
         };
-        
+
         _essayCacheService.GetEssay(essayId)
             .Returns(essay);
 

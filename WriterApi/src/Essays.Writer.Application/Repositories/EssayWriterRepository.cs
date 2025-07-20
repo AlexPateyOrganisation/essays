@@ -22,7 +22,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         {
             return false;
         }
-        
+
         essayToUpdate.Title = essay.Title;
         essayToUpdate.CompressedBody = essay.CompressedBody;
         essayToUpdate.Author = essay.Author;

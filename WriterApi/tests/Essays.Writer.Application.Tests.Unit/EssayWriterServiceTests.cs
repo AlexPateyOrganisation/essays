@@ -101,7 +101,7 @@ public class EssayWriterServiceTests
     public async Task UpdateEssay_ShouldReturnFalseAndNotUpdateCache_WhenEssayIsNotUpdated()
     {
         //Arrange
-        Essay essay = new() 
+        Essay essay = new()
         {
             Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
             Title = "Test Title",

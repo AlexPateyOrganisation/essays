@@ -37,7 +37,7 @@ public class ApiFixture : WebApplicationFactory<IRetrieverApiAssemblyMarker>, IA
             Author = "Test Author",
             CreatedWhen = new DateTime(2025, 7, 1)
         };
-        
+
         await dbContext.Essays.AddAsync(testEssay);
         await dbContext.SaveChangesAsync();
 
