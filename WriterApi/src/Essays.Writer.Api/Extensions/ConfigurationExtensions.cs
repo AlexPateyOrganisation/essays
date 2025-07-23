@@ -28,8 +28,6 @@ public static class ConfigurationExtensions
         const string serviceNamespace = "Essays.Writer.Api";
 
         var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
-        var otlpEndpoint = builder.Configuration["OpenTelemetry:OTLP_Endpoint"] ??
-            throw new Exception("Could not find url for OpenTelemetry Collector.");
         var applicationInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"];
 
         builder.Services.AddOpenTelemetry()
@@ -45,6 +43,9 @@ public static class ConfigurationExtensions
                 tracing.AddConsoleExporter();
                 if (applicationInsightsConnectionString is null)
                 {
+                    var otlpEndpoint = builder.Configuration["OpenTelemetry:OTLP_Endpoint"] ??
+                                       throw new Exception("Could not find url for OpenTelemetry Collector.");
+
                     tracing.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
                 }
                 else
@@ -62,6 +63,9 @@ public static class ConfigurationExtensions
                 metrics.AddConsoleExporter();
                 if (applicationInsightsConnectionString is null)
                 {
+                    var otlpEndpoint = builder.Configuration["OpenTelemetry:OTLP_Endpoint"] ??
+                                       throw new Exception("Could not find url for OpenTelemetry Collector.");
+
                     metrics.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
                 }
                 else
@@ -75,6 +79,9 @@ public static class ConfigurationExtensions
                 logging.AddConsoleExporter();
                 if (applicationInsightsConnectionString is null)
                 {
+                    var otlpEndpoint = builder.Configuration["OpenTelemetry:OTLP_Endpoint"] ??
+                                       throw new Exception("Could not find url for OpenTelemetry Collector.");
+
                     logging.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
                 }
                 else
