@@ -15,6 +15,14 @@ name: 'keyVaultDeployment'
   }
 }
 
+module logAnalyticsWorkspace 'modules/telemetry/log-analytics.bicep' = {
+  name: 'logAnalyticsWorkspaceDeployment'
+  params: {
+    location: location
+    name: 'log-${uniqueId}'
+  }
+}
+
 module sqlDatabase 'modules/storage/sql-database.bicep' = {
   name: 'sqlDatabaseDeployment'
   params: {
@@ -34,6 +42,7 @@ module retrieverApiAppService 'modules/compute/app-service.bicep' = {
     appServicePlanName: 'asp-retriever-api-${uniqueId}'
     location: location
     keyVaultName: keyVaultName
+    logAnalyticsWorkspaceId: logAnalyticsWorkspace.outputs.id
   }
 }
 
@@ -44,6 +53,7 @@ module writerApiAppService 'modules/compute/app-service.bicep' = {
     appServicePlanName: 'asp-writer-api-${uniqueId}'
     location: location
     keyVaultName: keyVaultName
+    logAnalyticsWorkspaceId: logAnalyticsWorkspace.outputs.id
   }
 }
 
