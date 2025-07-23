@@ -1,5 +1,4 @@
 using Essays.Core.Models.Models;
-using StackExchange.Redis;
 
 namespace Essays.Retriever.Application.Services.Interfaces;
 

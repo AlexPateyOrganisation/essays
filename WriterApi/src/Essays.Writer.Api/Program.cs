@@ -8,6 +8,7 @@ builder.Configuration.ConfigureAzureKeyVault();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddEndpoints<Program>(builder.Configuration);
+builder.ConfigureOpenTelemetry();
 
 var app = builder.Build();
 
