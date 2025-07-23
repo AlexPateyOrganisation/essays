@@ -70,8 +70,8 @@ public static class ConfigurationExtensions
                 }
                 else
                 {
-                    metrics.AddAzureMonitorMetricExporter(options
-                        => options.ConnectionString = applicationInsightsConnectionString);
+                    metrics.AddAzureMonitorMetricExporter(options => 
+                        options.ConnectionString = applicationInsightsConnectionString);
                 }
             })
             .WithLogging(logging =>
@@ -86,8 +86,8 @@ public static class ConfigurationExtensions
                 }
                 else
                 {
-                    logging.AddAzureMonitorLogExporter(options
-                        => options.ConnectionString = applicationInsightsConnectionString);
+                    logging.AddAzureMonitorLogExporter(options => 
+                        options.ConnectionString = applicationInsightsConnectionString);
                 }
             });
     }
