@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
 
@@ -9,7 +10,10 @@ public static class GzipExtensions
     {
         if (string.IsNullOrWhiteSpace(text))
         {
-            throw new ArgumentException("Text cannot be null or whitespace.");
+            var exception = new ArgumentException("Text cannot be null or whitespace.");
+            Activity.Current?.SetStatus(ActivityStatusCode.Error);
+            Activity.Current?.AddException(exception);
+            throw exception;
         }
 
         var bytes = Encoding.UTF8.GetBytes(text);
@@ -26,7 +30,10 @@ public static class GzipExtensions
     {
         if (compressedBytes is null || compressedBytes.Length is 0)
         {
-            throw new ArgumentException("Compressed bytes cannot be null or empty.");
+            var exception = new ArgumentException("Compressed bytes cannot be null or empty.");
+            Activity.Current?.SetStatus(ActivityStatusCode.Error);
+            Activity.Current?.AddException(exception);
+            throw exception;
         }
 
         using var input = new MemoryStream(compressedBytes);

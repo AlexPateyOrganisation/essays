@@ -24,9 +24,9 @@ public class RetrieverEndpoints : IEndpoints
             .AllowAnonymous();
 
         app.MapGet($"{BaseRoute}/{{id:guid}}", GetEssayHandler)
-        .WithName("GetEssay")
-        .Produces<EssayResponse>()
-        .Produces(StatusCodes.Status404NotFound);
+            .WithName("GetEssay")
+            .Produces<EssayResponse>()
+            .Produces(StatusCodes.Status404NotFound);
     }
 
     private static async Task<IResult> GetEssayHandler(Guid id, IEssayRetrieverService essayRetrieverService, CancellationToken cancellationToken = default)

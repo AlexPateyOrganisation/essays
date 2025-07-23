@@ -1,5 +1,8 @@
+using System.Diagnostics;
 using Essays.Core.Data.Data;
 using Essays.Core.Models.Models;
+using Essays.Writer.Application.Diagnostics;
+using Essays.Writer.Application.Extensions;
 using Essays.Writer.Application.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,13 +12,24 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
 {
     public async Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
+        Activity.Current?.EnrichWithEssay(essay);
+
         await essaysContext.Essays.AddAsync(essay, cancellationToken);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
-        return rowsAffected > 0;
+
+        if (rowsAffected > 0)
+        {
+            ApplicationDiagnostics.EssaysCreatedCounter.Add(1);
+            return true;
+        }
+
+        return false;
     }
 
     public async Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
+        Activity.Current?.EnrichWithEssay(essay);
+
         var essayToUpdate = essaysContext.Essays.SingleOrDefault(e => e.Id == essay.Id);
 
         if (essayToUpdate == null)
@@ -34,6 +48,8 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
 
     public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)
     {
+        Activity.Current?.EnrichWithEssayId(id);
+
         var essay = await essaysContext.Essays.SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
 
         if (essay == null)

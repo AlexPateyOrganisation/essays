@@ -23,10 +23,7 @@ services:
     image: redis/redis-stack:latest
     container_name: redis
     ports:
-      - "6379:6379"
-      - "8001:8001"
-    environment:
-      REDIS_ARGS: "--requirepass Test123!"
+      - "8001:8001" # Redis Stack UI
 
   retriever-api:
     image: retriever-api
@@ -57,5 +54,53 @@ services:
     environment:
       ConnectionStrings__EssaysContext: "Server=essays-db,1433;Database=EssaysDb;User Id=sa;Password=Test123!;TrustServerCertificate=True;"
       ConnectionStrings__Redis: "redis:6379,password=Test123!"
+      OpenTelemetry__OTLP_Endpoint: "http://otel-collector:4317"
     ports:
       - "8081:8080"
+        
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686" # Jaeger web UI
+        
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090" # Prometheus web UI
+    volumes:
+      - ./open-telemetry/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+      
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./open-telemetry/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    ports:
+      - "3000:3000"
+      
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    volumes:
+      - ./open-telemetry/otel-collector-config.yml:/etc/otel/config.yaml
+    command: --config /etc/otel/config.yaml
+    environment:
+      JAEGER_ENDPOINT: "jaeger:4317"
+    ports:
+      - "8889:8889"   # Prometheus metrics exporter (scrape endpoint)
+      - "13133:13133" # health_check extension
+      - "55679:55679" # ZPages extension
+      - "4317:4317"   # OTLP Receiver
+    depends_on:
+      - jaeger
+      - prometheus
+      - loki
