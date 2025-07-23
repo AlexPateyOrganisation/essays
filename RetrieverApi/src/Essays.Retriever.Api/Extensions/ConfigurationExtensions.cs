@@ -20,7 +20,7 @@ public static class ConfigurationExtensions
                 new DefaultAzureCredential());
         }
     }
-    
+
     public static void ConfigureOpenTelemetry(this WebApplicationBuilder builder)
     {
         const string serviceName = "essays-retriever-api";
@@ -68,7 +68,7 @@ public static class ConfigurationExtensions
                 }
                 else
                 {
-                    metrics.AddAzureMonitorMetricExporter(options => 
+                    metrics.AddAzureMonitorMetricExporter(options =>
                         options.ConnectionString = applicationInsightsConnectionString);
                 }
             })
@@ -84,7 +84,7 @@ public static class ConfigurationExtensions
                 }
                 else
                 {
-                    logging.AddAzureMonitorLogExporter(options => 
+                    logging.AddAzureMonitorLogExporter(options =>
                         options.ConnectionString = applicationInsightsConnectionString);
                 }
             });
