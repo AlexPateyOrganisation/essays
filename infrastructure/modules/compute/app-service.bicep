@@ -2,6 +2,16 @@ param location string = resourceGroup().location
 param appServicePlanName string
 param appServiceName string
 param keyVaultName string
+param logAnalyticsWorkspaceId string
+
+module applicationInsights '../telemetry/app-insights.bicep' = {
+    name: '${appServiceName}ApplicationInsightsDeployment'
+    params: {
+        location: location
+        name: 'appi-${appServiceName}'
+        logAnalyticsWorkspaceId: logAnalyticsWorkspaceId
+    }
+}
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-04-01' = {
   kind: 'app,linux'
