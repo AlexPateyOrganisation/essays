@@ -9,7 +9,6 @@ public static class ActivityExtensions
     {
         activity?.AddTag("essay-id", essay.Id);
         activity?.AddTag("essay-title", essay.Title);
-        activity?.AddTag("essay-author", essay.Author);
     }
 
     public static void EnrichWithEssayId(this Activity? activity, Guid essayId)

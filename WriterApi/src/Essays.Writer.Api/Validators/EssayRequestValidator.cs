@@ -15,8 +15,7 @@ public class EssayRequestValidator : AbstractValidator<EssayRequest>
             .MinimumLength(100)
             .NotEmpty();
 
-        RuleFor(er => er.Author)
-            .MaximumLength(255)
+        RuleFor(er => er.Authors)
             .NotEmpty();
     }
 }

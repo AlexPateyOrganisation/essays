@@ -35,7 +35,16 @@ public class EssayRetrieverServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
@@ -63,7 +72,16 @@ public class EssayRetrieverServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 

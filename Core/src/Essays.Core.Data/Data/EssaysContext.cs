@@ -8,10 +8,12 @@ namespace Essays.Core.Data.Data;
 public class EssaysContext(DbContextOptions<EssaysContext> options) : DbContext(options)
 {
     public DbSet<Essay> Essays => Set<Essay>();
+    public DbSet<Author> Authors => Set<Author>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new EssayMapping());
+        modelBuilder.ApplyConfiguration(new AuthorMapping());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

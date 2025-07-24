@@ -6,10 +6,10 @@ namespace Essays.Writer.Application.Services;
 
 public class EssayWriterService(IEssayCacheService essayCacheService, IEssayWriterRepository essayWriterRepository) : IEssayWriterService
 {
-    public async Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
+    public async Task<Essay?> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
-        var isCreated = await essayWriterRepository.CreateEssay(essay, cancellationToken);
-        return isCreated;
+        var createdEssay = await essayWriterRepository.CreateEssay(essay, cancellationToken);
+        return createdEssay;
     }
 
     public async Task<Essay?> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)

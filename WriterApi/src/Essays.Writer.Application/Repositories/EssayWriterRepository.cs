@@ -10,9 +10,14 @@ namespace Essays.Writer.Application.Repositories;
 
 public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRepository
 {
-    public async Task<bool> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
+    public async Task<Essay?> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssay(essay);
+
+        var processedAuthors = await EnsureAuthors(essay.Authors, cancellationToken);
+
+        essay.Authors.Clear();
+        essay.Authors.AddRange(processedAuthors);
 
         await essaysContext.Essays.AddAsync(essay, cancellationToken);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
@@ -20,28 +25,32 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         if (rowsAffected > 0)
         {
             ApplicationDiagnostics.EssaysCreatedCounter.Add(1);
-            return true;
+            return essay;
         }
 
-        return false;
+        return null;
     }
 
     public async Task<Essay?> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssay(essay);
 
-        var essayToUpdate = essaysContext.Essays.SingleOrDefault(e => e.Id == essay.Id);
+        var essayToUpdate = await essaysContext.Essays
+            .Include(e => e.Authors)
+            .SingleOrDefaultAsync(e => e.Id == essay.Id, cancellationToken);
 
         if (essayToUpdate == null)
         {
             return null;
         }
 
+        var processedAuthors = await EnsureAuthors(essay.Authors, cancellationToken);
+
         essayToUpdate.Title = essay.Title;
         essayToUpdate.CompressedBody = essay.CompressedBody;
-        essayToUpdate.Author = essay.Author;
+        essayToUpdate.Authors.Clear();
+        essayToUpdate.Authors.AddRange(processedAuthors);
 
-        essaysContext.Essays.Update(essayToUpdate);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
 
         if (rowsAffected > 0)
@@ -66,5 +75,40 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         essaysContext.Essays.Remove(essay);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
         return rowsAffected > 0;
+    }
+
+    private async Task<List<Author>> EnsureAuthors(List<Author> authors, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            List<Author> processedAuthors = [];
+            var authorSlugs = authors.Select(a => a.Slug).ToList();
+
+            var existingAuthors = await essaysContext.Authors.Where(a =>
+                authorSlugs.Contains(a.Slug)).ToListAsync(cancellationToken);
+
+            foreach (var author in authors)
+            {
+                var existingAuthor = existingAuthors.SingleOrDefault(a => a.Slug == author.Slug);
+
+                if (existingAuthor is null)
+                {
+                    await essaysContext.Authors.AddAsync(author, cancellationToken);
+                    processedAuthors.Add(author);
+                }
+                else
+                {
+                    processedAuthors.Add(existingAuthor);
+                }
+            }
+
+            return processedAuthors;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
     }
 }
