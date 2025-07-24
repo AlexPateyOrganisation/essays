@@ -32,18 +32,47 @@ public class EssayWriterServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
+
+        Essay createdEssay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
         _essayWriterRepository.CreateEssay(essay)
-            .Returns(true);
+            .Returns(createdEssay);
 
         //Act
         var result = await _sut.CreateEssay(essay);
 
         //Assert
-        result.ShouldBe(true);
+        result.ShouldBeEquivalentTo(createdEssay);
     }
 
     [Fact]
@@ -57,18 +86,27 @@ public class EssayWriterServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
         _essayWriterRepository.CreateEssay(essay)
-            .Returns(false);
+            .Returns(null as Essay); ;
 
         //Act
         var result = await _sut.CreateEssay(essay);
 
         //Assert
-        result.ShouldBe(false);
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -82,7 +120,16 @@ public class EssayWriterServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
@@ -93,7 +140,16 @@ public class EssayWriterServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
@@ -119,7 +175,16 @@ public class EssayWriterServiceTests
             CompressedBody =
                 "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
                     .CompressWithGzip(),
-            Author = "Test Author",
+            Authors = [
+                new Author
+                {
+                    Id = new Guid("123a1529-1725-469d-8d27-8fb0f0e61c40"),
+                    FirstName = "Author First Name",
+                    LastName = "Author Last Name",
+                    DateOfBirth = new DateOnly(2000, 1, 1),
+                    Slug = "Author First Name-Author Last Name-20000101"
+                }
+            ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 

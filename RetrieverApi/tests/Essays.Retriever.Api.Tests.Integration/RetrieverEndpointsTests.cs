@@ -35,7 +35,9 @@ public class RetrieverEndpointsTests(ApiFixture fixture) : IClassFixture<ApiFixt
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         responseContent.ShouldNotBeNull();
         responseContent.Title.ShouldBe("Test Title");
-        responseContent.Author.ShouldBe("Test Author");
+        responseContent.Authors.ShouldNotBeEmpty();
+        responseContent.Authors.First().FirstName.ShouldBe("Author First Name");
+        responseContent.Authors.First().LastName.ShouldBe("Author Last Name");
         responseContent.Body.ShouldBe("This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.");
     }
 

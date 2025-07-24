@@ -38,7 +38,8 @@ public class WriterEndpoints : IEndpoints
             .WithName("UpdateEssay")
             .Accepts<EssayRequest>(ContentType)
             .Produces<EssayResponse>()
-            .Produces(StatusCodes.Status404NotFound);
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status400BadRequest);
 
         app.MapDelete($"{BaseRoute}/{{id:guid}}", DeleteEssayHandler)
             .WithName("DeleteEssay")
@@ -58,14 +59,14 @@ public class WriterEndpoints : IEndpoints
 
         var essay = essayRequest.MapToEssay();
 
-        var isCreated = await essayWriterService.CreateEssay(essay, cancellationToken);
+        var createdEssay = await essayWriterService.CreateEssay(essay, cancellationToken);
 
-        if (!isCreated)
+        if (createdEssay is null)
         {
             return Results.BadRequest();
         }
 
-        var essayResponse = essay.MapToEssayResponse();
+        var essayResponse = createdEssay.MapToEssayResponse();
 
         return Results.Created($"/essays/{essayResponse.Id}", essayResponse);
     }

@@ -4,6 +4,7 @@ using Essays.Core.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Essays.Retriever.Application.Migrations
 {
     [DbContext(typeof(EssaysContext))]
-    partial class EssaysContextModelSnapshot : ModelSnapshot
+    [Migration("20250724211000_FurtherUpdateToAuthorTable")]
+    partial class FurtherUpdateToAuthorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

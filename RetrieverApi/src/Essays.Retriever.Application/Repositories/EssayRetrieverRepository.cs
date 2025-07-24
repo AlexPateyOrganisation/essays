@@ -9,7 +9,9 @@ public class EssayRetrieverRepository(EssaysContext essaysContext) : IEssayRetri
 {
     public async Task<Essay?> GetEssay(Guid id, CancellationToken cancellationToken = default)
     {
-        var essay = await essaysContext.Essays.SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
+        var essay = await essaysContext.Essays
+            .Include(e => e.Authors)
+            .SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
         return essay;
     }
 }

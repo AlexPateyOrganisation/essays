@@ -7,5 +7,8 @@ namespace Essays.Retriever.Api.Mappings;
 public static class ContractMappings
 {
     public static EssayResponse MapToEssayResponse(this Essay essay) =>
-        new(essay.Id, essay.Title, essay.CompressedBody.DecompressWithGzip(), essay.Author, essay.CreatedWhen);
+        new(essay.Id, essay.Title, essay.CompressedBody.DecompressWithGzip(), essay.Authors.Select(a => a.MapToAuthorResponse()).ToList(), essay.CreatedWhen);
+
+    public static AuthorResponse MapToAuthorResponse(this Author author) =>
+        new(author.Id, author.FirstName, author.LastName, author.DateOfBirth, author.Slug);
 }

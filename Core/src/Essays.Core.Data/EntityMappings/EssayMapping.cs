@@ -18,10 +18,6 @@ public class EssayMapping : IEntityTypeConfiguration<Essay>
         builder.Property(e => e.CompressedBody)
             .IsRequired();
 
-        builder.Property(e => e.Author)
-            .HasMaxLength(255)
-            .IsRequired();
-
         builder.Property(e => e.CreatedWhen)
             .HasValueGenerator<CreatedWhenDateGenerator>()
             .IsRequired();
