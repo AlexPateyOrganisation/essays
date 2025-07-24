@@ -12,16 +12,16 @@ public class EssayWriterService(IEssayCacheService essayCacheService, IEssayWrit
         return isCreated;
     }
 
-    public async Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
+    public async Task<Essay?> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
-        var isUpdated = await essayWriterRepository.UpdateEssay(essay, cancellationToken);
+        var updatedEssay = await essayWriterRepository.UpdateEssay(essay, cancellationToken);
 
-        if (isUpdated)
+        if (updatedEssay is not null)
         {
             await essayCacheService.DeleteEssay(essay.Id);
         }
 
-        return isUpdated;
+        return updatedEssay;
     }
 
     public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)

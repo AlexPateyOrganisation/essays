@@ -72,7 +72,7 @@ public class EssayWriterServiceTests
     }
 
     [Fact]
-    public async Task UpdateEssay_ShouldReturnTrueAndUpdateCache_WhenEssayIsUpdated()
+    public async Task UpdateEssay_ShouldReturnUpdatedEssayAndUpdateCache_WhenEssayIsUpdated()
     {
         //Arrange
         Essay essay = new()
@@ -86,19 +86,30 @@ public class EssayWriterServiceTests
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
+        Essay updatedEssay = new()
+        {
+            Id = new Guid("f76a1529-1725-469d-8d27-8fb0f0e61c40"),
+            Title = "Test Title",
+            CompressedBody =
+                "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement."
+                    .CompressWithGzip(),
+            Author = "Test Author",
+            CreatedWhen = new DateTime(2025, 7, 1)
+        };
+
         _essayWriterRepository.UpdateEssay(essay)
-            .Returns(true);
+            .Returns(updatedEssay);
 
         //Act
         var result = await _sut.UpdateEssay(essay);
 
         //Assert
-        result.ShouldBe(true);
+        result.ShouldBeEquivalentTo(updatedEssay);
         await _essayCacheService.Received().DeleteEssay(essay.Id);
     }
 
     [Fact]
-    public async Task UpdateEssay_ShouldReturnFalseAndNotUpdateCache_WhenEssayIsNotUpdated()
+    public async Task UpdateEssay_ShouldReturnNullAndNotUpdateCache_WhenEssayIsNotUpdated()
     {
         //Arrange
         Essay essay = new()
@@ -113,13 +124,13 @@ public class EssayWriterServiceTests
         };
 
         _essayWriterRepository.UpdateEssay(essay)
-            .Returns(false);
+            .Returns(null as Essay);
 
         //Act
         var result = await _sut.UpdateEssay(essay);
 
         //Assert
-        result.ShouldBe(false);
+        result.ShouldBeNull();
         await _essayCacheService.DidNotReceive().DeleteEssay(essay.Id);
     }
 

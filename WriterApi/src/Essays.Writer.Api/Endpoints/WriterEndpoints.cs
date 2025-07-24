@@ -82,14 +82,14 @@ public class WriterEndpoints : IEndpoints
 
         var essay = essayRequest.MapToEssay(id);
 
-        var isUpdated = await essayWriterService.UpdateEssay(essay, cancellationToken);
+        var updatedEssay = await essayWriterService.UpdateEssay(essay, cancellationToken);
 
-        if (!isUpdated)
+        if (updatedEssay is null)
         {
             return Results.NotFound();
         }
 
-        var essayResponse = essay.MapToEssayResponse();
+        var essayResponse = updatedEssay.MapToEssayResponse();
 
         return Results.Ok(essayResponse);
     }
