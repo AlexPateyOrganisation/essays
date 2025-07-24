@@ -26,7 +26,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         return false;
     }
 
-    public async Task<bool> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
+    public async Task<Essay?> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssay(essay);
 
@@ -34,7 +34,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
 
         if (essayToUpdate == null)
         {
-            return false;
+            return null;
         }
 
         essayToUpdate.Title = essay.Title;
@@ -43,7 +43,13 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
 
         essaysContext.Essays.Update(essayToUpdate);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
-        return rowsAffected > 0;
+
+        if (rowsAffected > 0)
+        {
+            return essayToUpdate;
+        }
+
+        return null;
     }
 
     public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)

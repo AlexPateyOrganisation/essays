@@ -1,5 +1,5 @@
-@WriterApi_HostAddress = http://localhost:8081
-@Test_Essay_Id = 01502d16-759d-4a6a-a562-843f3b98c30d
+@WriterApi_HostAddress = app-writer-api-rv4qakzmk4hiy.azurewebsites.net
+@Test_Essay_Id = ef519c4e-477d-4b51-a58b-e1adca84df47
 
 GET {{WriterApi_HostAddress}}
 
