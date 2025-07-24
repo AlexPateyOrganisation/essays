@@ -7,12 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="StackExchange.Redis" Version="2.8.41" />
+        <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.4.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.12.0-beta.2" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.15" />
+        <PackageReference Include="StackExchange.Redis" Version="2.8.41" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Core\src\Essays.Core.Data\Essays.Core.Data.csproj" />
-      <ProjectReference Include="..\..\..\Core\src\Essays.Core.Models\Essays.Core.Models.csproj" />
+        <ProjectReference Include="..\..\..\Core\src\Essays.Core.Data\Essays.Core.Data.csproj" />
+        <ProjectReference Include="..\..\..\Core\src\Essays.Core.Models\Essays.Core.Models.csproj" />
     </ItemGroup>
 
 </Project>
