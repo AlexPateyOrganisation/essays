@@ -9,6 +9,7 @@ public class EssayCacheService(IConnectionMultiplexer redisConnectionMultiplexer
 {
     private readonly IDatabase _redisDatabase = redisConnectionMultiplexer.GetDatabase();
 
+    /// <inherit/>
     public async Task<Essay?> GetEssay(Guid id)
     {
         var cacheKey = $"essay:{id}";
@@ -20,6 +21,7 @@ public class EssayCacheService(IConnectionMultiplexer redisConnectionMultiplexer
 
     }
 
+    /// <inherit/>
     public async Task CacheEssay(Essay? essay)
     {
         if (essay != null)

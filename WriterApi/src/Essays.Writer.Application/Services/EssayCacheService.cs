@@ -7,6 +7,7 @@ public class EssayCacheService(IConnectionMultiplexer redisConnectionMultiplexer
 {
     private readonly IDatabase _redisDatabase = redisConnectionMultiplexer.GetDatabase();
 
+    /// <inheritdoc/>
     public async Task DeleteEssay(Guid id)
         => await _redisDatabase.KeyDeleteAsync($"essay:{id}");
 }

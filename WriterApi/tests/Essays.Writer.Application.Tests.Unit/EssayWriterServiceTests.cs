@@ -12,13 +12,15 @@ public class EssayWriterServiceTests
 {
     private readonly IEssayCacheService _essayCacheService;
     private readonly IEssayWriterRepository _essayWriterRepository;
+    private readonly IAuthorRepository _authorRepository;
     private readonly EssayWriterService _sut;
 
     public EssayWriterServiceTests()
     {
         _essayCacheService = Substitute.For<IEssayCacheService>();
         _essayWriterRepository = Substitute.For<IEssayWriterRepository>();
-        _sut = new EssayWriterService(_essayCacheService, _essayWriterRepository);
+        _authorRepository = Substitute.For<IAuthorRepository>();
+        _sut = new EssayWriterService(_essayCacheService, _essayWriterRepository, _authorRepository);
     }
 
     [Fact]
@@ -65,6 +67,9 @@ public class EssayWriterServiceTests
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
+        _authorRepository.EnsureAuthors(essay.Authors)
+            .Returns(essay.Authors);
+
         _essayWriterRepository.CreateEssay(essay)
             .Returns(createdEssay);
 
@@ -98,6 +103,9 @@ public class EssayWriterServiceTests
             ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
+
+        _authorRepository.EnsureAuthors(essay.Authors)
+            .Returns(essay.Authors);
 
         _essayWriterRepository.CreateEssay(essay)
             .Returns(null as Essay); ;
@@ -153,6 +161,9 @@ public class EssayWriterServiceTests
             CreatedWhen = new DateTime(2025, 7, 1)
         };
 
+        _authorRepository.EnsureAuthors(essay.Authors)
+            .Returns(essay.Authors);
+
         _essayWriterRepository.UpdateEssay(essay)
             .Returns(updatedEssay);
 
@@ -187,6 +198,9 @@ public class EssayWriterServiceTests
             ],
             CreatedWhen = new DateTime(2025, 7, 1)
         };
+
+        _authorRepository.EnsureAuthors(essay.Authors)
+            .Returns(essay.Authors);
 
         _essayWriterRepository.UpdateEssay(essay)
             .Returns(null as Essay);
