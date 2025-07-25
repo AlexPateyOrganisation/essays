@@ -10,14 +10,10 @@ namespace Essays.Writer.Application.Repositories;
 
 public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRepository
 {
+    /// <inheritdoc/>
     public async Task<Essay?> CreateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssay(essay);
-
-        var processedAuthors = await EnsureAuthors(essay.Authors, cancellationToken);
-
-        essay.Authors.Clear();
-        essay.Authors.AddRange(processedAuthors);
 
         await essaysContext.Essays.AddAsync(essay, cancellationToken);
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
@@ -31,6 +27,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         return null;
     }
 
+    /// <inheritdoc/>
     public async Task<Essay?> UpdateEssay(Essay essay, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssay(essay);
@@ -44,12 +41,10 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
             return null;
         }
 
-        var processedAuthors = await EnsureAuthors(essay.Authors, cancellationToken);
-
         essayToUpdate.Title = essay.Title;
         essayToUpdate.CompressedBody = essay.CompressedBody;
         essayToUpdate.Authors.Clear();
-        essayToUpdate.Authors.AddRange(processedAuthors);
+        essayToUpdate.Authors.AddRange(essay.Authors);
 
         var rowsAffected = await essaysContext.SaveChangesAsync(cancellationToken);
 
@@ -61,6 +56,7 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         return null;
     }
 
+    /// <inheritdoc/>
     public async Task<bool> DeleteEssay(Guid id, CancellationToken cancellationToken = default)
     {
         Activity.Current?.EnrichWithEssayId(id);
@@ -77,38 +73,5 @@ public class EssayWriterRepository(EssaysContext essaysContext) : IEssayWriterRe
         return rowsAffected > 0;
     }
 
-    private async Task<List<Author>> EnsureAuthors(List<Author> authors, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            List<Author> processedAuthors = [];
-            var authorSlugs = authors.Select(a => a.Slug).ToList();
 
-            var existingAuthors = await essaysContext.Authors.Where(a =>
-                authorSlugs.Contains(a.Slug)).ToListAsync(cancellationToken);
-
-            foreach (var author in authors)
-            {
-                var existingAuthor = existingAuthors.SingleOrDefault(a => a.Slug == author.Slug);
-
-                if (existingAuthor is null)
-                {
-                    await essaysContext.Authors.AddAsync(author, cancellationToken);
-                    processedAuthors.Add(author);
-                }
-                else
-                {
-                    processedAuthors.Add(existingAuthor);
-                }
-            }
-
-            return processedAuthors;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-
-    }
 }

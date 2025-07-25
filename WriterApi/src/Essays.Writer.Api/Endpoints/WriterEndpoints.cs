@@ -20,6 +20,7 @@ public class WriterEndpoints : IEndpoints
         services.AddScoped<IEssayWriterService, EssayWriterService>();
         services.AddScoped<IEssayCacheService, EssayCacheService>();
         services.AddScoped<IEssayWriterRepository, EssayWriterRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IValidator<EssayRequest>, EssayRequestValidator>();
     }
 

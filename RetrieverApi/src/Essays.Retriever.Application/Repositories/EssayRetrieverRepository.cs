@@ -7,6 +7,7 @@ namespace Essays.Retriever.Application.Repositories;
 
 public class EssayRetrieverRepository(EssaysContext essaysContext) : IEssayRetrieverRepository
 {
+    /// <inherit/>
     public async Task<Essay?> GetEssay(Guid id, CancellationToken cancellationToken = default)
     {
         var essay = await essaysContext.Essays

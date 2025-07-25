@@ -6,6 +6,7 @@ namespace Essays.Retriever.Application.Services;
 
 public class EssayRetrieverService(IEssayCacheService essayCacheService, IEssayRetrieverRepository essayRetrieverRepository) : IEssayRetrieverService
 {
+    /// <inherit/>
     public async Task<Essay?> GetEssay(Guid id, CancellationToken cancellationToken = default)
     {
         var essay = await essayCacheService.GetEssay(id);
