@@ -1,5 +1,5 @@
 param name string
-var location: string = 'westeurope'
+var location string = 'westeurope'
 
 resource staticWebApp 'Microsoft.Web/staticSites@2024-11-01' = {
   location: location
