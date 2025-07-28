@@ -421,12 +421,6 @@ FodyWeavers.xsd
 **/.angular/
 **/.vscode/
 
-# Package lock files
-**/package-lock.json
-**/npm-shrinkwrap.json
-**/yarn.lock
-**/pnpm-lock.yaml
-
 # Logs and debugging
 *.log
 **/npm-debug.log*
