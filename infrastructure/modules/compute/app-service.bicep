@@ -3,6 +3,7 @@ param appServicePlanName string
 param appServiceName string
 param keyVaultName string
 param logAnalyticsWorkspaceId string
+param appSettings array = []
 
 module applicationInsights '../telemetry/app-insights.bicep' = {
     name: '${appServiceName}ApplicationInsightsDeployment'
@@ -33,7 +34,7 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
     httpsOnly: true
     siteConfig: {
       linuxFxVersion: 'DOTNETCORE|9.0'
-      appSettings: [
+      appSettings: concat([
         {
           name: 'KeyVaultName'
           value: keyVaultName
@@ -42,7 +43,8 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
           value: applicationInsights.outputs.connectionString
         }
-      ]
+      ],
+      appSettings)
     }
   }
   identity: {
