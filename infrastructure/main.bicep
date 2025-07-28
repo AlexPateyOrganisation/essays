@@ -43,6 +43,12 @@ module retrieverApiAppService 'modules/compute/app-service.bicep' = {
     location: location
     keyVaultName: keyVaultName
     logAnalyticsWorkspaceId: logAnalyticsWorkspace.outputs.id
+    appSettings: [
+      {
+        name: 'AllowedOrigins'
+        value: staticWebApp.outputs.url
+      }
+    ]
   }
 }
 
@@ -54,6 +60,12 @@ module writerApiAppService 'modules/compute/app-service.bicep' = {
     location: location
     keyVaultName: keyVaultName
     logAnalyticsWorkspaceId: logAnalyticsWorkspace.outputs.id
+    appSettings: [
+      {
+        name: 'AllowedOrigins'
+        value: staticWebApp.outputs.url
+      }
+    ]
   }
 }
 
@@ -74,5 +86,13 @@ module redisCache 'modules/storage/redis-cache.bicep' = {
     name: 'redis-${uniqueId}'
     location: location
     keyVaultName: keyVaultName
+  }
+}
+
+module staticWebApp 'modules/web/static-web-app.bicep' = {
+  name: 'staticWebAppDeployment'
+  params: {
+    name: 'app-essays-ui-${uniqueId}'
+    location: location
   }
 }
