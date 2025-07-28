@@ -11,7 +11,7 @@ public class AuthorRepository(EssaysContext essaysContext) : IAuthorRepository
     public async Task<List<Author>> EnsureAuthors(List<Author> authors, CancellationToken cancellationToken = default)
     {
         List<Author> processedAuthors = [];
-        
+
         var authorSlugs = authors.Select(a => a.Slug).ToList();
 
         var existingAuthors = await essaysContext.Authors.Where(a =>

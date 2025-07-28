@@ -4,7 +4,7 @@ using Essays.Retriever.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? 
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ??
     throw new Exception("Could not find allowed origins value from configuration.");
 
 builder.Services.AddCors(options =>
