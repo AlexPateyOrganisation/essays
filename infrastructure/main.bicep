@@ -93,6 +93,5 @@ module staticWebApp 'modules/web/static-web-app.bicep' = {
   name: 'staticWebAppDeployment'
   params: {
     name: 'app-essays-ui-${uniqueId}'
-    location: location
   }
 }
