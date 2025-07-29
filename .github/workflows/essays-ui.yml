@@ -27,11 +27,25 @@ jobs:
     steps:
       - name: Checkout main branch of repository
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm ci
+        
+      - name: Build Angular app
+        working-directory: ${{ env.WORKING_DIR }}
+        run: npm run build --configuration=production
                     
       - name: Deploy to Static Web App resource
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.ESSAYS_UI_DEPLOYMENT_TOKEN }}
           action: "upload"
-          app_location: "EssaysUI/essays-ui"
-          output_location: "EssaysUI/essays-ui/dist/essays-ui/browser"
+          app_location: ${{ env.WORKING_DIR }}
+          output_location: "${{ env.WORKING_DIR }}/dist/essays-ui/browser"
+          skip_app_build: true
