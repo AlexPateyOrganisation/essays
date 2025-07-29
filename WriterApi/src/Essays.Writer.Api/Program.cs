@@ -4,14 +4,16 @@ using Essays.Writer.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ??
-    throw new Exception("Could not find allowed origins value from configuration.");
+var allowedOrigins = builder.Configuration["AllowedOrigins"] ??
+                     throw new Exception("Could not find allowed origins value from configuration.");
+
+var allowedOriginsArray = allowedOrigins.Split(",");
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policyBuilder =>
     {
-        policyBuilder.WithOrigins(allowedOrigins)
+        policyBuilder.WithOrigins(allowedOriginsArray)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
