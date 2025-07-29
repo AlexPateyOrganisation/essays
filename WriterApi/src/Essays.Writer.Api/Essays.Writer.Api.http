@@ -12,7 +12,13 @@ Content-Type: application/json
 {
     "Title": "Test Title 12",
     "Body": "This is a sample essay body for testing purposes. It contains more than one hundred characters to meet the minimum length requirement.",
-    "Author": "Test Author 2"
+    "Authors": [
+      {
+        "FirstName": "AuthorFirstName2",
+        "LastName": "AuthorLastName",
+        "DateOfBirth": "1999-01-01"
+      }
+    ]
 }
 
 ###
