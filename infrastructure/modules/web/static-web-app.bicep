@@ -8,9 +8,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2024-11-01' = {
     tier: 'Standard'
     name: 'Standard'
   }
-  properties: {
-    
-  }
+  properties: { }
 }
 
 output id string = staticWebApp.id

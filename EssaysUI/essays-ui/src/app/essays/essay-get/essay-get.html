@@ -1,1 +1,21 @@
-<p>essays-get works! {{ id() }}</p>
+@if (essay) {
+  <nz-card [nzTitle]="essay.title" [nzExtra]="extraTemplate">
+    <p>
+      {{essay.body}}
+    </p>
+  </nz-card>
+  <ng-template #extraTemplate>
+    <div>
+      {{ essay.createdWhen | date: 'mediumDate'}}
+    </div>
+    @for (author of essay.authors; track author.id) {
+      <div>
+        {{ author.firstName }} {{ author.lastName }}
+      </div>
+    }
+  </ng-template>
+} @else {
+  <nz-card>
+    <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+  </nz-card>
+}

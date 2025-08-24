@@ -1,0 +1,68 @@
+<nz-card nzTitle="Create Essay">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="onSubmit()" style="max-width: 600px">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="title">Title</nz-form-label>
+      <nz-form-control nzErrorTip="Title is required">
+        <input nz-input formControlName="title" id="title" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="body">Body</nz-form-label>
+      <nz-form-control nzErrorTip="Body is required">
+        <textarea formControlName="body" id="body" ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    @for (authorControl of listOfAuthorControls; track authorControl.id; let i = $index) {
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="firstName">First Name</nz-form-label>
+        <nz-form-control nzErrorTip="First Name is required">
+          <input nz-input [formControlName]="authorControl.firstNameControlInstance" id="firstName" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="lastName">Last Name</nz-form-label>
+        <nz-form-control nzErrorTip="Last Name is required">
+          <input nz-input [formControlName]="authorControl.lastNameControlInstance" id="lastName" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="dateOfBirth">Date Of Birth</nz-form-label>
+        <nz-form-control nzErrorTip="Date Of Birth is required">
+          <input nz-input [formControlName]="authorControl.dateOfBirthControlInstance" id="dateOfBirth" type="date"/>
+        </nz-form-control>
+      </nz-form-item>
+    }
+
+    <div class="authorButtons">
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="dashed" (click)="onAddAuthorField($event)">
+            <nz-icon nzType="plus" />
+            Add Another Author
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+
+      @if (listOfAuthorControls.length > 1) {
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="dashed" (click)="onDeleteAuthorField($event)">
+              <nz-icon nzType="minus-circle-o" />
+              Delete Previous Author
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      }
+    </div>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button id="createEssayButton" nz-button nzType="primary">Create</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
