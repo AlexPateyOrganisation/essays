@@ -1,5 +1,5 @@
-@RetrieverApi_HostAddress = https://app-retriever-api-rv4qakzmk4hiy.azurewebsites.net/
-@Test_Essay_Id = e1d32b81-f362-49e3-8062-39a0a5d3c881
+@RetrieverApi_HostAddress = http://localhost:8080
+@Test_Essay_Id = dedc740e-a037-4ad5-8977-eba3a3a09216
 
 GET {{RetrieverApi_HostAddress}}/
 
